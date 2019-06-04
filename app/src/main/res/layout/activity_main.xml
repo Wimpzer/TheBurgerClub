@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/headlineTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_view_headline"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/eventSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@id/headlineTextView" />
+
+        <LinearLayout
+            android:id="@+id/topLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/eventSpinner">
+            <ImageView
+                android:id="@+id/classicImageView"
+                android:layout_width="0dp"
+                android:layout_height="150sp"
+                android:layout_weight="1"
+                android:padding="0.5sp"
+                android:src="@drawable/burger_classic_closed"/>
+            <ImageView
+                android:id="@+id/letsRumbleImageView"
+                android:layout_width="0dp"
+                android:layout_height="150sp"
+                android:layout_weight="1"
+                android:padding="0.5sp"
+                android:src="@drawable/burger_letsrumble_closed"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/middleLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/topLinearLayout">
+            <ImageView
+                android:id="@+id/rumbleInTheJungleImageView"
+                android:layout_width="0dp"
+                android:layout_height="150sp"
+                android:layout_weight="1"
+                android:padding="0.5sp"
+                android:src="@drawable/burger_rumbleinthejungle_closed"/>
+            <ImageView
+                android:id="@+id/greenBeastImageView"
+                android:layout_width="0dp"
+                android:layout_height="150sp"
+                android:layout_weight="1"
+                android:padding="0.5sp"
+                android:src="@drawable/burger_greenbeast_closed"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/buttonLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/middleLinearLayout">
+            <ImageView
+                android:id="@+id/polloImageView"
+                android:layout_width="0dp"
+                android:layout_height="150sp"
+                android:layout_weight="1"
+                android:padding="0.5sp"
+                android:src="@drawable/burger_pollo_closed"/>
+            <ImageView
+                android:id="@+id/gorillaImageView"
+                android:layout_width="0dp"
+                android:layout_height="150sp"
+                android:layout_weight="1"
+                android:padding="0.5sp"
+                android:src="@drawable/burger_gorilla_closed"/>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+</android.support.design.widget.CoordinatorLayout>

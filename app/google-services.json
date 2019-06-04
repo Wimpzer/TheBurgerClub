@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "74388315909",
+    "firebase_url": "https://boycutthecantine.firebaseio.com",
+    "project_id": "boycutthecantine",
+    "storage_bucket": "boycutthecantine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74388315909:android:41ccd0069017e5b1",
+        "android_client_info": {
+          "package_name": "com.tdc.theburgerclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74388315909-q3s78de2850695b4jnvnh6cmcs0do45c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5rfSa5yKDcV4MxwzdpcWJhWN5uW-Ok3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74388315909-q3s78de2850695b4jnvnh6cmcs0do45c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Boycott the cafeteria</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_view_headline">Choose event</string>
+    <string name="add_event">Add event</string>
+    <string name="see_event">See event</string>
+
+    <string name="order">Order</string>
+
+    <string name="name_classic"><b>Classic</b></string>
+    <string name="name_letsrumble"><b>Let\'s rumble</b></string>
+    <string name="name_rumbleinthejungle"><b>Rumble in the jungle</b></string>
+    <string name="name_greenbeast"><b>Green beast</b> <i>Veggie</i></string>
+    <string name="name_pollo"><b>Pollo burger</b></string>
+    <string name="name_gorilla"><b>Gorilla</b></string>
+
+    <string name="burgerprice_classic">65,-</string>
+    <string name="menuprice_classic">95,-</string>
+    <string name="burgerprice_letsrumble">65,-</string>
+    <string name="menuprice_letsrumble">95,-</string>
+    <string name="burgerprice_rumbleinthejungle">75,-</string>
+    <string name="menuprice_rumbleinthejungle">105,-</string>
+    <string name="burgerprice_greenbeast">65,-</string>
+    <string name="menuprice_greenbeast">95,-</string>
+    <string name="burgerprice_pollo">60,-</string>
+    <string name="menuprice_pollo">95,-</string>
+    <string name="burgerprice_gorilla">90,-</string>
+    <string name="menuprice_gorilla">125,-</string>
+
+    <string name="inside_classic">Mayo, lettuce, tomato, pickles and ketchup</string>
+    <string name="inside_letsrumble">Chilimayo, lettuce, tomato, pickles, smoked barbecue and jalapenos</string>
+    <string name="inside_rumbleinthejungle">Mayo, lettuce, tomato, onions, pickles, and <b><i>Rumbles Jungle Sauce</i></b></string>
+    <string name="inside_greenbeast">Mayo, lettuce, tomato, pickles, and <b><i>Rumbles Sauce</i></b></string>
+    <string name="inside_pollo">Chrispy chcken, mayo, lettuce, tomato and pickles</string>
+    <string name="inside_gorilla">Double beef, double cheese, double bacon, mayo, lettuce, tomato, pickles and ketchup</string>
+
+    <string name="accessories"><u>Accessories</u></string>
+</resources>
