@@ -2,7 +2,9 @@ package com.tdc.theburgerclub;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,7 +18,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.tdc.theburgerclub.dtos.Dip;
 import com.tdc.theburgerclub.dtos.Order;
 import com.tdc.theburgerclub.enums.BurgerOrMenu;
-import com.tdc.theburgerclub.enums.DipEnum;
+import com.tdc.theburgerclub.enums.Soda;
 import com.tdc.theburgerclub.helpers.SpinnerHelper;
 
 import java.text.ParseException;
@@ -27,7 +29,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class FirebaseConnector {
 
@@ -120,19 +121,12 @@ public class FirebaseConnector {
                 });
     }
 
-    public void getAllOrdersFromEvent(String eventDateString) {
-        final List<Order> standAloneOrders = new ArrayList<>();
-        final List<Order> menuOrders = new ArrayList<>();
-        final List<Order> ordersWithBacon = new ArrayList<>();
-        final List<Order> ordersWithCheese = new ArrayList<>();
-        final List<Order> ordersWithBaconAndCheese = new ArrayList<>();
-        final List<Dip> dips = new ArrayList<>();
-        final Dip mayoDip = new Dip(DipEnum.MAYO);
-        final Dip ketchupDip = new Dip(DipEnum.KETCHUP);
-        final Dip remouladeDip = new Dip(DipEnum.REMOULADE);
-        final Dip chiliMayoDip = new Dip(DipEnum.CHILIMAYO);
-        final Dip aioliDip = new Dip(DipEnum.AIOLI);
-
+    public void getAllOrdersFromEvent(String eventDateString, final TextView classicMenuTextView, final TextView letsRumbleMenuTextView, final TextView rumbleInTheJungleMenuTextView,
+                                      final TextView greenBeastMenuTextView, final TextView polloMenuTextView, final TextView gorillaMenuTextView, final TextView colaTextView,
+                                      final TextView orangeTextView, final TextView sportTextView, final TextView mayoTextView, final TextView ketchupTextView,
+                                      final TextView remouladeTextView, final TextView chilimayoTextView, final TextView aioliTextView, final TextView classicTextView,
+                                      final TextView letsRumbleTextView, final TextView rumbleInTheJungleTextView, final TextView greenBeastTextView, final TextView polloTextView,
+                                      final TextView gorillaTextView, final TextView specialTextView) {
         Date eventDate = convertStringToDate(eventDateString);
 
         db.collection(EVENTS)
@@ -145,9 +139,11 @@ public class FirebaseConnector {
 
                             List<Order> orders = new ArrayList<>();
                             List<HashMap<String, Object>> ordersMap = (List<HashMap<String, Object>>) task.getResult().get("orders");
-                            for(HashMap<String, Object> hashMap : ordersMap) {
-                                Order order = new Order(hashMap);
-                                orders.add(order);
+                            if(ordersMap != null) {
+                                for (HashMap<String, Object> hashMap : ordersMap) {
+                                    Order order = new Order(hashMap);
+                                    orders.add(order);
+                                }
                             }
 
                             if(orders.size() > 0) {
@@ -160,56 +156,133 @@ public class FirebaseConnector {
 
                     private void populateOrders(List<Order> orders) {
                         for(Order order : orders) {
-                            if(order.isWithBacon()) {
-                                if(order.isWithCheese()) {
-                                    ordersWithBaconAndCheese.add(order);
-                                    continue;
-                                }
-                                ordersWithBacon.add(order);
-                                continue;
-                            }
-                            if(order.isWithCheese()) {
-                                ordersWithCheese.add(order);
+                            if(order.isWithBacon() || order.isWithCheese()) {
+                                populateSpecialOrdersTextView(order);
                                 continue;
                             }
                             if(order.getBurgerOrMenu() == BurgerOrMenu.STANDALONE) {
-                                standAloneOrders.add(order);
+                                populateBurgerTextViews(order);
                                 continue;
                             }
-                            menuOrders.add(order);
-                            populateDips(order);
+                            populateMenuTextViews(order);
                         }
-                        dips.add(mayoDip);
-                        dips.add(ketchupDip);
-                        dips.add(remouladeDip);
-                        dips.add(chiliMayoDip);
-                        dips.add(aioliDip);
                     }
 
-                    private void populateDips(Order order) {
-                        if(!order.getDips().isEmpty()) {
-                            for(Dip dip : order.getDips()) {
-                                DipEnum dipEnum = dip.getDipEnum();
-                                int amount = dip.getAmount();
-                                switch (dipEnum) {
-                                    case MAYO:
-                                        mayoDip.setAmount(mayoDip.getAmount() + amount);
-                                        break;
-                                    case KETCHUP:
-                                        ketchupDip.setAmount(mayoDip.getAmount() + amount);
-                                        break;
-                                    case REMOULADE:
-                                        remouladeDip.setAmount(mayoDip.getAmount() + amount);
-                                        break;
-                                    case CHILIMAYO:
-                                        chiliMayoDip.setAmount(mayoDip.getAmount() + amount);
-                                        break;
-                                    case AIOLI:
-                                        aioliDip.setAmount(mayoDip.getAmount() + amount);
-                                        break;
-                                }
+                    private void populateSpecialOrdersTextView(Order order) {
+                        specialTextView.append(order.getBurgerOrMenu().toString() + ": " + order.getBurgerName().getName());
+
+                        if(order.isWithCheese())
+                            specialTextView.append(" + cheese");
+                        if(order.isWithBacon())
+                            specialTextView.append(" + bacon");
+                        specialTextView.append("\n");
+                    }
+
+                    private void populateBurgerTextViews(Order order) {
+                        switchCaseBurgerName(order.getBurgerName().getName(), classicTextView, letsRumbleTextView,
+                                rumbleInTheJungleTextView, greenBeastTextView, polloTextView, gorillaTextView);
+                    }
+
+                    private void populateMenuTextViews(Order order) {
+                        switchCaseBurgerName(order.getBurgerName().getName(), classicMenuTextView, letsRumbleMenuTextView,
+                                rumbleInTheJungleMenuTextView, greenBeastMenuTextView, polloMenuTextView, gorillaMenuTextView);
+                        switchCaseSodas(order.getSoda());
+                        switchCaseDips(order.getDips());
+                    }
+
+                    private void switchCaseBurgerName(String name, TextView classicTextView, TextView letsRumbleTextView, TextView rumbleInTheJungleTextView,
+                                                      TextView greenBeastTextView, TextView polloTextView, TextView gorillaTextView) {
+                        String string;
+
+                        switch(name) {
+                            case "Classic":
+                                string = getCountFromTextView(classicTextView, 1) + "x " + "Classic";
+                                classicTextView.setText(string);
+                                break;
+                            case "Let\'s Rumble":
+                                string = getCountFromTextView(letsRumbleTextView, 1) + "x " + "Let\'s Rumble";
+                                letsRumbleTextView.setText(string);
+                                break;
+                            case "Rumble in the jungle":
+                                string = getCountFromTextView(rumbleInTheJungleTextView, 1) + "x " + "Rumble in the jungle";
+                                rumbleInTheJungleTextView.setText(string);
+                                break;
+                            case "Green beast Veggie":
+                                string = getCountFromTextView(greenBeastTextView, 1) + "x " + "Green beast";
+                                greenBeastTextView.setText(string);
+                                break;
+                            case "Pollo burger":
+                                string = getCountFromTextView(polloTextView, 1) + "x " + "Pollo";
+                                polloTextView.setText(string);
+                                break;
+                            case "Gorilla":
+                                string = getCountFromTextView(gorillaTextView, 1) + "x " + "Gorilla";
+                                gorillaTextView.setText(string);
+                                break;
+                        }
+                    }
+
+                    private void switchCaseSodas(Soda soda) {
+                        String string;
+
+                        switch(soda.toString()) {
+                            case "COLA":
+                                string = getCountFromTextView(colaTextView, 1) + "x " + "cola";
+                                colaTextView.setText(string);
+                                break;
+                            case "ORANGE":
+                                string = getCountFromTextView(orangeTextView, 1) + "x " + "orange";
+                                orangeTextView.setText(string);
+                                break;
+                            case "SPORT":
+                                string = getCountFromTextView(sportTextView, 1) + "x " + "sport";
+                                sportTextView.setText(string);
+                                break;
+                        }
+                    }
+
+                    private void switchCaseDips(List<Dip> dips) {
+                        for(Dip dip : dips) {
+                            String string;
+                            switch(dip.getDipEnum().toString()) {
+                                case "MAYO":
+                                    string = getCountFromTextView(mayoTextView, dip.getAmount()) + "x " + "mayo";
+                                    mayoTextView.setText(string);
+                                    break;
+                                case "KETCHUP":
+                                    string = getCountFromTextView(ketchupTextView, dip.getAmount()) + "x " + "ketchup";
+                                    ketchupTextView.setText(string);
+                                    break;
+                                case "REMOULADE":
+                                    string = getCountFromTextView(remouladeTextView, dip.getAmount()) + "x " + "remoulade";
+                                    remouladeTextView.setText(string);
+                                    break;
+                                case "CHILIMAYO":
+                                    string = getCountFromTextView(chilimayoTextView, dip.getAmount()) + "x " + "chilimayo";
+                                    chilimayoTextView.setText(string);
+                                    break;
+                                case "AIOLI":
+                                    string = getCountFromTextView(aioliTextView, dip.getAmount()) + "x " + "aioli";
+                                    aioliTextView.setText(string);
+                                    break;
                             }
                         }
+                    }
+
+                    private int getCountFromTextView(TextView textView, int increaseCount) {
+                        int count;
+                        String textViewString = textView.getText().toString();
+                        String countString = textViewString.split("x")[0];
+
+                        if(countString.equals("")) {
+                            count = increaseCount;
+                        } else {
+                            count = Integer.parseInt(countString) + increaseCount;
+                        }
+
+                        textView.setVisibility(View.VISIBLE);
+
+                        return count;
                     }
                 });
     }
