@@ -271,17 +271,19 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ordererName = getOrdererName();
-                Burger burger = Burger.fromString(burgerName);
-                BurgerOrMenu burgerOrMenu = isBurgerOrMenu();
-                Soda soda = getChosenSoda();
-                boolean withCheese = isWithCheese();
-                boolean withBacon = isWithBacon();
-                List<Dip> dips = getDips();
-                String priceString = priceTextView.getText().toString();
-                int price = Integer.parseInt(priceString.substring(0, priceString.length()-2));
-                Order order = new Order(ordererName, burger, burgerOrMenu, soda, withCheese, withBacon, dips, price);
-                firebaseConnector.addOrderToEvent(order, eventDate);
-                finish();
+                if(!ordererName.equals("")) {
+                    Burger burger = Burger.fromString(burgerName);
+                    BurgerOrMenu burgerOrMenu = isBurgerOrMenu();
+                    Soda soda = getChosenSoda();
+                    boolean withCheese = isWithCheese();
+                    boolean withBacon = isWithBacon();
+                    List<Dip> dips = getDips();
+                    String priceString = priceTextView.getText().toString();
+                    int price = Integer.parseInt(priceString.substring(0, priceString.length() - 2));
+                    Order order = new Order(ordererName, burger, burgerOrMenu, soda, withCheese, withBacon, dips, price);
+                    firebaseConnector.addOrderToEvent(order, eventDate);
+                    finish();
+                }
             }
 
             private String getOrdererName() {
