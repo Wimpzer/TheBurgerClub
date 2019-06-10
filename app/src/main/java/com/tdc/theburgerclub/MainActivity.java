@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!menuCardPopupWindow.isShowing()) {
-                    menuCardPopupWindow.showAtLocation(menucardLayout, Gravity.CENTER, 0 ,0);
+                if (!menuCardPopupWindow.isShowing()) {
+                    menuCardPopupWindow.showAtLocation(menucardLayout, Gravity.CENTER, 0, 0);
                 } else {
                     menuCardPopupWindow.dismiss();
                 }
@@ -136,12 +136,14 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String burgerName = getResources().getString(burgerNameId);
-                String burgerPriceFull = getResources().getString(burgerPriceId);
-                String burgerPrice = burgerPriceFull.substring(0, burgerPriceFull.length() - 2);
-                String menuPriceFull = getResources().getString(menuPriceId);
-                String menuPrice = menuPriceFull.substring(0, menuPriceFull.length() - 2);
-                openOrderActivity(burgerName, burgerPrice, menuPrice);
+                if (eventSpinner.getSelectedItem() != null) {
+                    String burgerName = getResources().getString(burgerNameId);
+                    String burgerPriceFull = getResources().getString(burgerPriceId);
+                    String burgerPrice = burgerPriceFull.substring(0, burgerPriceFull.length() - 2);
+                    String menuPriceFull = getResources().getString(menuPriceId);
+                    String menuPrice = menuPriceFull.substring(0, menuPriceFull.length() - 2);
+                    openOrderActivity(burgerName, burgerPrice, menuPrice);
+                }
             }
         };
     }
@@ -167,9 +169,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(menuCardPopupWindow.isShowing()) {
+        if (menuCardPopupWindow.isShowing()) {
             menuCardPopupWindow.dismiss();
-        } else if(eventPopupWindow.isShowing()) {
+        } else if (eventPopupWindow.isShowing()) {
             eventPopupWindow.dismiss();
         } else {
             super.onBackPressed();
@@ -191,10 +193,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if(id == R.id.action_AddEvent) {
+        if (id == R.id.action_AddEvent) {
             setupEventPopup();
             return true;
-        } else if(id == R.id.action_SeeEvent) {
+        } else if (id == R.id.action_SeeEvent) {
             setupSeeEvent();
             return true;
         }
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        eventPopupWindow.showAtLocation(eventLayout, Gravity.CENTER, 0 ,0);
+        eventPopupWindow.showAtLocation(eventLayout, Gravity.CENTER, 0, 0);
     }
 
     private Calendar getDateFromDatePicker(DatePicker datePicker) {
@@ -232,14 +234,16 @@ public class MainActivity extends AppCompatActivity {
         int year = datePicker.getYear();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, 0, 0,0);
+        calendar.set(year, month, day, 0, 0, 0);
 
         return calendar;
     }
 
     private void setupSeeEvent() {
-        Intent intent = new Intent(this, OrderList.class);
-        intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
-        startActivity(intent);
+        if (eventSpinner.getSelectedItem() != null) {
+            Intent intent = new Intent(this, OrderList.class);
+            intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
+            startActivity(intent);
+        }
     }
 }
