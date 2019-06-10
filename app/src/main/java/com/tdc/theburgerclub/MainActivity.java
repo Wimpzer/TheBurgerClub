@@ -199,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_SeeEvent) {
             setupSeeEvent();
             return true;
+        } else if (id == R.id.action_SeeDebtors) {
+            setupSeeDebtors();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -242,6 +245,14 @@ public class MainActivity extends AppCompatActivity {
     private void setupSeeEvent() {
         if (eventSpinner.getSelectedItem() != null) {
             Intent intent = new Intent(this, OrderList.class);
+            intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
+            startActivity(intent);
+        }
+    }
+
+    private void setupSeeDebtors() {
+        if (eventSpinner.getSelectedItem() != null) {
+            Intent intent = new Intent(this, DebtorsActivity.class);
             intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
             startActivity(intent);
         }

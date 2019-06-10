@@ -6,12 +6,15 @@
         android:id="@+id/action_AddEvent"
         android:orderInCategory="100"
         android:title="@string/add_event"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
     <item
-    android:id="@+id/action_SeeEvent"
-    android:orderInCategory="100"
-    android:title="@string/see_event"
-    app:showAsAction="never"
-    />
+        android:id="@+id/action_SeeEvent"
+        android:orderInCategory="100"
+        android:title="@string/see_event"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_SeeDebtors"
+        android:orderInCategory="100"
+        android:title="@string/see_debtors"
+        app:showAsAction="never" />
 </menu>

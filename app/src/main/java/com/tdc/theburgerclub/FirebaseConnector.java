@@ -287,6 +287,42 @@ public class FirebaseConnector {
                 });
     }
 
+    public void populateDebtorsList(String eventDateString, final TextView nameTextView, final TextView debtTextView) {
+        Date eventDate = convertStringToDate(eventDateString);
+
+        db.collection(EVENTS)
+                .document(eventDate.toString())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<Order> orders = new ArrayList<>();
+                            List<HashMap<String, Object>> ordersMap = (List<HashMap<String, Object>>) task.getResult().get("orders");
+                            if(ordersMap != null) {
+                                for (HashMap<String, Object> hashMap : ordersMap) {
+                                    Order order = new Order(hashMap);
+                                    orders.add(order);
+                                }
+                            }
+
+                            if(orders.size() > 0) {
+                                populateTextViews(orders);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting orders.", task.getException());
+                        }
+                    }
+
+                    private void populateTextViews(List<Order> orders) {
+                        for(Order order : orders) {
+                            nameTextView.append(order.getOrdererName() + "\n");
+                            debtTextView.append(order.getPrice() + ",-\n");
+                        }
+                    }
+                });
+    }
+
     private String convertTimestampToString(Timestamp timestamp) {
         String dateString;
 
