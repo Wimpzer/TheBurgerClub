@@ -3,6 +3,7 @@ package com.tdc.theburgerclub;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -121,12 +122,13 @@ public class FirebaseConnector {
                 });
     }
 
-    public void getAllOrdersFromEvent(String eventDateString, final TextView classicMenuTextView, final TextView letsRumbleMenuTextView, final TextView rumbleInTheJungleMenuTextView,
-                                      final TextView greenBeastMenuTextView, final TextView polloMenuTextView, final TextView gorillaMenuTextView, final TextView colaTextView,
-                                      final TextView orangeTextView, final TextView sportTextView, final TextView mayoTextView, final TextView ketchupTextView,
-                                      final TextView remouladeTextView, final TextView chilimayoTextView, final TextView aioliTextView, final TextView classicTextView,
-                                      final TextView letsRumbleTextView, final TextView rumbleInTheJungleTextView, final TextView greenBeastTextView, final TextView polloTextView,
-                                      final TextView gorillaTextView, final TextView specialTextView) {
+    public void getAllOrdersFromEvent(String eventDateString, final LinearLayout menusLinearLayout, final TextView classicMenuTextView, final TextView letsRumbleMenuTextView,
+                                      final TextView rumbleInTheJungleMenuTextView, final TextView greenBeastMenuTextView, final TextView polloMenuTextView, final TextView gorillaMenuTextView,
+                                      final TextView colaTextView, final TextView orangeTextView, final TextView sportTextView, final TextView mayoTextView,
+                                      final TextView ketchupTextView, final TextView remouladeTextView, final TextView chilimayoTextView, final TextView aioliTextView,
+                                      final LinearLayout burgerLinearLayout, final TextView classicTextView, final TextView letsRumbleTextView, final TextView rumbleInTheJungleTextView,
+                                      final TextView greenBeastTextView, final TextView polloTextView, final TextView gorillaTextView, final LinearLayout specialLinearLayout,
+                                      final TextView specialTextView) {
         Date eventDate = convertStringToDate(eventDateString);
 
         db.collection(EVENTS)
@@ -136,7 +138,6 @@ public class FirebaseConnector {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-
                             List<Order> orders = new ArrayList<>();
                             List<HashMap<String, Object>> ordersMap = (List<HashMap<String, Object>>) task.getResult().get("orders");
                             if(ordersMap != null) {
@@ -157,13 +158,16 @@ public class FirebaseConnector {
                     private void populateOrders(List<Order> orders) {
                         for(Order order : orders) {
                             if(order.isWithBacon() || order.isWithCheese()) {
+                                specialLinearLayout.setVisibility(View.VISIBLE);
                                 populateSpecialOrdersTextView(order);
                                 continue;
                             }
                             if(order.getBurgerOrMenu() == BurgerOrMenu.STANDALONE) {
+                                burgerLinearLayout.setVisibility(View.VISIBLE);
                                 populateBurgerTextViews(order);
                                 continue;
                             }
+                            menusLinearLayout.setVisibility(View.VISIBLE);
                             populateMenuTextViews(order);
                         }
                     }

@@ -3,12 +3,14 @@ package com.tdc.theburgerclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class OrderList extends AppCompatActivity {
+public class OrderListActivity extends AppCompatActivity {
 
     FirebaseConnector firebaseConnector = new FirebaseConnector();
 
+    LinearLayout orderListMenusLinearLayout;
     TextView orderListClassicMenuTextView;
     TextView orderListLetsRumbleMenuTextView;
     TextView orderListRumbleInTheJungleMenuTextView;
@@ -24,6 +26,7 @@ public class OrderList extends AppCompatActivity {
     TextView orderListChilimayoTextView;
     TextView orderListAioliTextView;
 
+    LinearLayout orderListBurgerLinearLayout;
     TextView orderListClassicTextView;
     TextView orderListLetsRumbleTextView;
     TextView orderListRumbleInTheJungleTextView;
@@ -31,6 +34,7 @@ public class OrderList extends AppCompatActivity {
     TextView orderListPolloTextView;
     TextView orderListGorillaTextView;
 
+    LinearLayout orderListSpecialLinearLayout;
     TextView orderListSpecialTextView;
 
     String eventDate;
@@ -47,16 +51,17 @@ public class OrderList extends AppCompatActivity {
         orderListHeadlineTextView.setText(eventDate);
 
         setupTextViews();
-        firebaseConnector.getAllOrdersFromEvent(eventDate, orderListClassicMenuTextView, orderListLetsRumbleMenuTextView,
-                orderListRumbleInTheJungleMenuTextView, orderListGreenBeastMenuTextView, orderListPolloMenuTextView,
-                orderListGorillaMenuTextView, orderListColaTextView, orderListOrangeTextView, orderListSportTextView,
-                orderListMayoTextView, orderListKetchupTextView, orderListRemouladeTextView,
-                orderListChilimayoTextView, orderListAioliTextView, orderListClassicTextView,
-                orderListLetsRumbleTextView, orderListLetsRumbleTextView, orderListGreenBeastTextView,
-                orderListPolloTextView, orderListGorillaTextView, orderListSpecialTextView);
+        firebaseConnector.getAllOrdersFromEvent(eventDate, orderListMenusLinearLayout, orderListClassicMenuTextView, orderListLetsRumbleMenuTextView,
+                orderListRumbleInTheJungleMenuTextView, orderListGreenBeastMenuTextView, orderListPolloMenuTextView, orderListGorillaMenuTextView,
+                orderListColaTextView, orderListOrangeTextView, orderListSportTextView, orderListMayoTextView,
+                orderListKetchupTextView, orderListRemouladeTextView, orderListChilimayoTextView, orderListAioliTextView,
+                orderListBurgerLinearLayout, orderListClassicTextView, orderListLetsRumbleTextView, orderListLetsRumbleTextView,
+                orderListGreenBeastTextView, orderListPolloTextView, orderListGorillaTextView, orderListSpecialLinearLayout,
+                orderListSpecialTextView);
     }
 
     private void setupTextViews() {
+        orderListMenusLinearLayout = findViewById(R.id.orderListMenusLinearLayout);
         orderListClassicMenuTextView = findViewById(R.id.orderListClassicMenuTextView);
         orderListLetsRumbleMenuTextView = findViewById(R.id.orderListLetsRumbleMenuTextView);
         orderListRumbleInTheJungleMenuTextView = findViewById(R.id.orderListRumbleInTheJungleMenuTextView);
@@ -72,6 +77,7 @@ public class OrderList extends AppCompatActivity {
         orderListChilimayoTextView = findViewById(R.id.orderListChilimayoTextView);
         orderListAioliTextView = findViewById(R.id.orderListAioliTextView);
 
+        orderListBurgerLinearLayout = findViewById(R.id.orderListBurgersLinearLayout);
         orderListClassicTextView = findViewById(R.id.orderListClassicTextView);
         orderListLetsRumbleTextView = findViewById(R.id.orderListLetsRumbleTextView);
         orderListRumbleInTheJungleTextView = findViewById(R.id.orderListRumbleInTheJungleTextView);
@@ -79,6 +85,7 @@ public class OrderList extends AppCompatActivity {
         orderListPolloTextView = findViewById(R.id.orderListPolloTextView);
         orderListGorillaTextView = findViewById(R.id.orderListGorillaTextView);
 
+        orderListSpecialLinearLayout = findViewById(R.id.orderListSpecialLinearLayout);
         orderListSpecialTextView = findViewById(R.id.orderListSpecialTextView);
     }
 }

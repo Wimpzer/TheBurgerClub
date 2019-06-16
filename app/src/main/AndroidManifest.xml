@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DebtorsActivity"></activity>
-        <activity android:name=".OrderList" />
+        <activity android:name=".OrderListActivity" />
         <activity android:name=".OrderActivity" />
         <activity
             android:name=".MainActivity"

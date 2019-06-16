@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupSeeEvent() {
         if (eventSpinner.getSelectedItem() != null) {
-            Intent intent = new Intent(this, OrderList.class);
+            Intent intent = new Intent(this, OrderListActivity.class);
             intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
             startActivity(intent);
         }
