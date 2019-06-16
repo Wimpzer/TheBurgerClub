@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tdc.theburgerclub.dtos.Dip;
 import com.tdc.theburgerclub.dtos.Order;
@@ -282,7 +283,13 @@ public class OrderActivity extends AppCompatActivity {
                     int price = Integer.parseInt(priceString.substring(0, priceString.length() - 2));
                     Order order = new Order(ordererName, burger, burgerOrMenu, soda, withCheese, withBacon, dips, price);
                     firebaseConnector.addOrderToEvent(order, eventDate);
+                    String toastString = getOrdererName() + ", your order have now been placed for the event on the " + eventDate;
+                    Toast toast = Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_LONG);
+                    toast.show();
                     finish();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Please enter your name", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
 

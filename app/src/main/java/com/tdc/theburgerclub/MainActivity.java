@@ -20,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.tdc.theburgerclub.helpers.SpinnerHelper;
 
@@ -143,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                     String menuPriceFull = getResources().getString(menuPriceId);
                     String menuPrice = menuPriceFull.substring(0, menuPriceFull.length() - 2);
                     openOrderActivity(burgerName, burgerPrice, menuPrice);
+                }  else {
+                    showNoEventToast();
                 }
             }
         };
@@ -247,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, OrderListActivity.class);
             intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
             startActivity(intent);
+        } else {
+            showNoEventToast();
         }
     }
 
@@ -255,6 +260,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, DebtorsActivity.class);
             intent.putExtra(EVENT_DATE, eventSpinner.getSelectedItem().toString());
             startActivity(intent);
+        } else {
+            showNoEventToast();
         }
+    }
+
+    private void showNoEventToast() {
+        Toast toast = Toast.makeText(getApplicationContext(), "No event date have been picked", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
